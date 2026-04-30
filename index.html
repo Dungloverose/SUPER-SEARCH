@@ -6,33 +6,17 @@
     <title>Multi-Search Super App</title>
     <style>
         :root {
-            --primary: #2563eb;
-            --yt: #ff0000;
-            --sp: #1DB954;
-            --tk: #000000;
-            --fb: #1877F2;
-            --gm: #4285F4;
-            --sh: #ee4d2d;
+            --primary: #2563eb; --yt: #ff0000; --sp: #1DB954;
+            --tk: #000000; --fb: #1877F2; --gm: #4285F4; --sh: #ee4d2d;
         }
         body { font-family: 'Inter', sans-serif; background: #f0f2f5; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
         .container { width: 100%; max-width: 500px; }
         .header { text-align: center; margin-bottom: 25px; }
-        
-        /* Search Box */
         .search-wrapper { position: sticky; top: 10px; z-index: 100; background: white; padding: 15px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
-        input { width: 100%; padding: 15px; border: 2px solid #eee; border-radius: 10px; outline: none; font-size: 16px; transition: 0.3s; box-sizing: border-box; }
-        input:focus { border-color: var(--primary); box-shadow: 0 0 8px rgba(37,99,235,0.2); }
-
-        /* Grid System */
+        input { width: 100%; padding: 15px; border: 2px solid #eee; border-radius: 10px; outline: none; font-size: 16px; box-sizing: border-box; }
         .app-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
-        
-        /* App Cards */
         .app-card { background: white; padding: 15px; border-radius: 12px; cursor: pointer; transition: all 0.2s ease; display: flex; flex-direction: column; align-items: center; text-align: center; border-bottom: 4px solid #ddd; }
         .app-card:active { transform: scale(0.95); }
-        .app-card h4 { margin: 10px 0 5px 0; font-size: 14px; }
-        .app-card p { margin: 0; font-size: 11px; color: #666; }
-
-        /* Custom Colors for Apps */
         .yt-card { border-color: var(--yt); }
         .sp-card { border-color: var(--sp); }
         .tk-card { border-color: var(--tk); }
@@ -57,42 +41,38 @@
             <div class="app-card yt-card" onclick="launch('youtube')">
                 <span style="font-size: 24px;">📺</span>
                 <h4>YouTube</h4>
-                <p id="t-yt">Tìm Video/MV</p>
+                <p id="t-yt">Chưa nhập từ khóa</p>
             </div>
-
             <div class="app-card sp-card" onclick="launch('spotify')">
                 <span style="font-size: 24px;">🎧</span>
                 <h4>Spotify</h4>
-                <p id="t-sp">Nghe nhạc</p>
+                <p id="t-sp">Chưa nhập từ khóa</p>
             </div>
-
             <div class="app-card tk-card" onclick="launch('tiktok')">
                 <span style="font-size: 24px;">📱</span>
                 <h4>TikTok</h4>
-                <p id="t-tk">Tìm Trend</p>
+                <p id="t-tk">Chưa nhập từ khóa</p>
             </div>
-
             <div class="app-card gm-card" onclick="launch('maps')">
                 <span style="font-size: 24px;">📍</span>
                 <h4>Maps</h4>
-                <p id="t-gm">Tìm địa điểm</p>
+                <p id="t-gm">Chưa nhập từ khóa</p>
             </div>
-
             <div class="app-card fb-card" onclick="launch('facebook')">
                 <span style="font-size: 24px;">👥</span>
                 <h4>Facebook</h4>
-                <p id="t-fb">Tìm bạn bè/nhóm</p>
+                <p id="t-fb">Chưa nhập từ khóa</p>
             </div>
-
             <div class="app-card sh-card" onclick="launch('shopee')">
                 <span style="font-size: 24px;">🛍️</span>
                 <h4>Shopee</h4>
-                <p id="t-sh">Mua sắm ngay</p>
+                <p id="t-sh">Chưa nhập từ khóa</p>
             </div>
         </div>
     </div>
 
     <script>
+        // Đồng bộ chữ hiển thị dưới các card
         function syncText() {
             let val = document.getElementById('mainInput').value;
             const targets = ['yt', 'sp', 'tk', 'gm', 'fb', 'sh'];
@@ -101,6 +81,7 @@
             });
         }
 
+        // Hàm mở link
         function launch(platform) {
             let query = document.getElementById('mainInput').value;
             if (!query) {
@@ -111,26 +92,18 @@
             let url = "";
             let encoded = encodeURIComponent(query);
 
+            // SỬA ĐỔI: Sử dụng URL web chuẩn thay vì Deep Link để tránh lỗi như trong image_0c53ba.png
             switch(platform) {
                 case 'youtube': url = `https://www.youtube.com/results?search_query=${encoded}`; break;
-                case 'spotify': url = `spotify:search:${encoded}`; break;
-                case 'tiktok': url = `snssdk1233://search?keyword=${encoded}`; break; // Deep link TikTok
+                case 'spotify': url = `https://open.spotify.com/search/${encoded}`; break;
+                case 'tiktok': url = `https://www.tiktok.com/search?q=${encoded}`; break; 
                 case 'maps': url = `https://www.google.com/maps/search/${encoded}`; break;
-                case 'facebook': url = `fb://search/top/?q=${encoded}`; break; // Deep link FB
+                case 'facebook': url = `https://www.facebook.com/search/top/?q=${encoded}`; break;
                 case 'shopee': url = `https://shopee.vn/search?keyword=${encoded}`; break;
             }
 
-            // Mở link
-            window.location.href = url;
-
-            // Fallback cho Deep links (nếu không có app thì mở web sau 1 giây)
-            if(platform === 'spotify' || platform === 'facebook' || platform === 'tiktok') {
-                setTimeout(() => {
-                    if (platform === 'spotify') window.location.href = `https://open.spotify.com/search/${encoded}`;
-                    if (platform === 'facebook') window.location.href = `https://www.facebook.com/search/top/?q=${encoded}`;
-                    if (platform === 'tiktok') window.location.href = `https://www.tiktok.com/search?q=${encoded}`;
-                }, 1000);
-            }
+            // SỬA ĐỔI: Mở bằng cửa sổ mới để Nativefier đẩy ra trình duyệt ngoài
+            window.open(url, '_blank');
         }
     </script>
 </body>
