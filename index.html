@@ -43,7 +43,40 @@
         </div>
         <button class="ai-sec" onclick="openLink('ai')">AI GEMINI</button>
         <div class="bottom-sec">
-            <div class="music-box" onclick="openLink('sf')">NHẠC</div>
+            <div class="music-box" onclick="openLink('sf')">
+    <div class="visualizer">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+    <span style="position: absolute; bottom: 10px; font-size: 14px;">SPOTIFY</span>
+</div>
+
+<style>
+    .visualizer {
+        display: flex;
+        align-items: flex-end;
+        gap: 3px;
+        height: 50px;
+    }
+    .bar {
+        width: 8px;
+        background: var(--accent);
+        animation: search-wave 1s ease-in-out infinite;
+    }
+    .bar:nth-child(1) { animation-delay: 0.1s; height: 30%; }
+    .bar:nth-child(2) { animation-delay: 0.3s; height: 60%; }
+    .bar:nth-child(3) { animation-delay: 0.2s; height: 90%; }
+    .bar:nth-child(4) { animation-delay: 0.4s; height: 50%; }
+    .bar:nth-child(5) { animation-delay: 0.1s; height: 70%; }
+
+    @keyframes search-wave {
+        0%, 100% { height: 20%; }
+        50% { height: 100%; }
+    }
+</style>
             <div class="fav-box">
                 <h4 style="margin:0">TAB yêu thích</h4>
                 <p style="font-size:12px; color:#64748b">• Danh sách trống</p>
