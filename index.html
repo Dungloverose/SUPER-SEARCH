@@ -8,70 +8,106 @@
     <style>
         :root { --bg: #0f172a; --card: #1e293b; --accent: #38bdf8; --text: #f8fafc; }
         body { 
-            font-family: sans-serif; background: var(--bg); color: var(--text); 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: var(--bg); color: var(--text); 
             margin: 0; display: flex; height: 100vh; overflow: hidden; 
         }
-        /* CỘT TRÁI */
-        .left-panel { width: 40%; border-right: 1px solid #334155; padding: 20px; display: flex; flex-direction: column; }
-        .search-box { width: 100%; padding: 12px; border-radius: 20px; border: 2px solid var(--accent); background: var(--card); color: white; margin-bottom: 20px; outline: none; box-sizing: border-box;}
-        .app-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .app-btn { background: var(--card); border: 1px solid #334155; padding: 15px; border-radius: 15px; text-align: center; cursor: pointer; font-size: 13px; }
-        .app-btn:active { background: var(--accent); color: black; }
 
-        /* CỘT PHẢI */
-        .right-panel { width: 60%; padding: 20px; display: flex; flex-direction: column; gap: 15px; }
-        .cam-sec { display: flex; gap: 10px; }
-        .cam-btn { background: var(--card); padding: 10px 15px; border-radius: 10px; border: 1px solid var(--accent); cursor: pointer; }
-        .cam-label { flex: 1; background: var(--card); padding: 10px; border-radius: 10px; border: 1px solid #334155; }
-        .ai-sec { background: linear-gradient(90deg, #38bdf8, #818cf8); color: white; padding: 20px; border-radius: 15px; font-weight: bold; text-align: center; font-size: 22px; cursor: pointer; border: none; }
-        .bottom-sec { display: flex; gap: 15px; flex: 1; }
-        .music-box { flex: 1; background: var(--card); border-radius: 15px; border: 1px solid #334155; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; cursor: pointer; }
+        /* CỘT TRÁI - TÌM KIẾM & APPS */
+        .left-panel { width: 40%; border-right: 1px solid #334155; padding: 20px; display: flex; flex-direction: column; box-sizing: border-box; }
+        .search-box { width: 100%; padding: 15px; border-radius: 12px; border: 2px solid var(--accent); background: var(--card); color: white; margin-bottom: 25px; outline: none; font-size: 16px; box-sizing: border-box; }
+        .app-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .app-btn { background: var(--card); border: 1px solid #475569; padding: 18px 10px; border-radius: 12px; text-align: center; cursor: pointer; font-weight: 500; transition: 0.2s; }
+        .app-btn:hover { background: #2d3748; border-color: var(--accent); }
+        .app-btn:active { transform: scale(0.95); background: var(--accent); color: black; }
+
+        /* CỘT PHẢI - CHỨC NĂNG */
+        .right-panel { width: 60%; padding: 20px; display: flex; flex-direction: column; gap: 20px; box-sizing: border-box; }
+        
+        .cam-sec { display: flex; gap: 12px; align-items: center; }
+        .cam-btn { background: var(--card); padding: 12px 18px; border-radius: 10px; border: 1px solid var(--accent); cursor: pointer; font-size: 20px; }
+        .cam-label { flex: 1; background: var(--card); padding: 15px; border-radius: 10px; border: 1px solid #334155; font-size: 16px; }
+
+        .ai-sec { 
+            background: linear-gradient(135deg, #6366f1, #38bdf8); 
+            color: white; padding: 25px; border-radius: 15px; 
+            font-weight: bold; text-align: center; font-size: 24px; 
+            cursor: pointer; border: none; box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+            transition: 0.3s;
+        }
+        .ai-sec:hover { opacity: 0.9; transform: translateY(-2px); }
+
+        .bottom-sec { display: flex; gap: 20px; flex: 1; }
+        .music-box { 
+            flex: 1; background: var(--card); border-radius: 15px; border: 1px solid #334155; 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 28px; font-weight: 800; cursor: pointer; color: #94a3b8;
+            transition: 0.3s;
+        }
+        .music-box:hover { color: white; border-color: var(--accent); }
+        
         .fav-box { flex: 1; background: var(--card); border-radius: 15px; border: 1px solid #334155; padding: 15px; }
+        .fav-title { margin: 0 0 10px 0; font-size: 18px; border-bottom: 1px solid #334155; padding-bottom: 5px; }
     </style>
 </head>
 <body>
+
+    <!-- CỘT TRÁI -->
     <div class="left-panel">
-        <input type="text" id="q" class="search-box" placeholder="TÌM KIẾM...">
+        <input type="text" id="q" class="search-box" placeholder="Bạn muốn tìm gì?">
         <div class="app-grid">
-            <div class="app-btn" onclick="go('yt')">YouTube</div>
-            <div class="app-btn" onclick="go('tk')">TikTok</div>
-            <div class="app-btn" onclick="go('fb')">Facebook</div>
-            <div class="app-btn" onclick="go('sp')">Shopee</div>
-            <div class="app-btn" onclick="go('gg')">Google</div>
-            <div class="app-btn" onclick="go('mp')">Maps</div>
+            <div class="app-btn" onclick="openSearch('yt')">YouTube</div>
+            <div class="app-btn" onclick="openSearch('tk')">TikTok</div>
+            <div class="app-btn" onclick="openSearch('fb')">Facebook</div>
+            <div class="app-btn" onclick="openSearch('sp')">Shopee</div>
+            <div class="app-btn" onclick="openSearch('gg')">Google</div>
+            <div class="app-btn" onclick="openSearch('mp')">Maps</div>
         </div>
     </div>
+
+    <!-- CỘT PHẢI -->
     <div class="right-panel">
         <div class="cam-sec">
-            <div class="cam-btn" onclick="alert('Mở máy ảnh...')">📷</div>
+            <div class="cam-btn" onclick="alert('Tính năng camera đang được cập nhật...')">📷</div>
             <div class="cam-label">Chụp Ảnh</div>
         </div>
-        <button class="ai-sec" onclick="window.open('https://gemini.google.com/', '_blank')">AI GEMINI</button>
+
+        <button class="ai-sec" onclick="window.open('https://gemini.google.com/', '_blank')">
+            AI GEMINI
+        </button>
+
         <div class="bottom-sec">
-            <div class="music-box" onclick="go('sf')">NHẠC</div>
+            <div class="music-box" onclick="openSearch('sf')">NHẠC</div>
             <div class="fav-box">
-                <h4 style="margin:0">TAB yêu thích</h4>
-                <p style="font-size:12px; color:#94a3b8; margin-top:10px">• Danh sách trống</p>
+                <h4 class="fav-title">TAB yêu thích</h4>
+                <div style="font-size: 13px; color: #64748b;">• Danh sách đang trống</div>
             </div>
         </div>
     </div>
+
     <script>
-        function go(app) {
-            const val = document.getElementById('q').value;
-            const encoded = encodeURIComponent(val);
-            const urls = {
-                yt: { w: 'https://youtube.com/results?search_query=', a: 'youtube://results?search_query=' },
-                tk: { w: 'https://tiktok.com/search?q=', a: 'snssdk1128://search?keyword=' },
-                fb: { w: 'https://facebook.com/search/top/?q=', a: 'fb://search/?q=' },
-                sp: { w: 'https://shopee.vn/search?keyword=', a: 'shopeevn://search?keyword=' },
-                gg: { w: 'https://google.com/search?q=', a: 'googlechrome://' },
-                mp: { w: 'https://google.com/maps/search/', a: 'comgooglemaps://?q=' },
-                sf: { w: 'https://open.spotify.com/search/', a: 'spotify:search:' }
+        function openSearch(platform) {
+            const keyword = document.getElementById('q').value;
+            if (!keyword && platform !== 'sf') {
+                alert("Vui lòng nhập từ khóa trước!");
+                return;
+            }
+
+            const encoded = encodeURIComponent(keyword);
+            
+            const baseLinks = {
+                yt: 'https://www.youtube.com/results?search_query=',
+                tk: 'https://www.tiktok.com/search?q=',
+                fb: 'https://www.facebook.com/search/top/?q=',
+                sp: 'https://shopee.vn/search?keyword=',
+                gg: 'https://www.google.com/search?q=',
+                mp: 'https://www.google.com/maps/search/',
+                sf: 'https://open.spotify.com/search/'
             };
-            if (!val && app !== 'sf') return alert("Nhập từ khóa!");
-            const start = Date.now();
-            window.location.href = urls[app].a + encoded;
-            setTimeout(() => { if (Date.now() - start < 800) window.open(urls[app].w + encoded, '_blank'); }, 500);
+
+            // Sử dụng window.open để mở link web chuẩn. 
+            // Nếu trình duyệt hoặc điện thoại có cài app, nó sẽ tự động gợi ý mở app.
+            window.open(baseLinks[platform] + encoded, '_blank');
         }
     </script>
 </body>
