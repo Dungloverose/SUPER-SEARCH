@@ -3,29 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XD Super App</title>
+    <title>XD Super App Pro</title>
+    <link rel="manifest" href="manifest.json">
     <style>
         :root { --bg: #0f172a; --card: #1e293b; --accent: #38bdf8; --text: #f8fafc; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); margin: 0; display: flex; height: 100vh; overflow: hidden; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
+            background: var(--bg); color: var(--text); 
+            margin: 0; display: flex; height: 100vh; overflow: hidden; 
+        }
+
+        /* LAYOUT CHIA 2 CỘT */
         .left-panel { width: 40%; border-right: 1px solid #334155; padding: 20px; display: flex; flex-direction: column; box-sizing: border-box; }
-        .right-panel { width: 60%; padding: 20px; display: flex; flex-direction: column; gap: 20px; box-sizing: border-box; }
-        .search-box { width: 100%; padding: 15px; border-radius: 12px; border: 2px solid var(--accent); background: var(--card); color: white; margin-bottom: 25px; outline: none; font-size: 16px; box-sizing: border-box; }
-        .app-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .app-btn { background: var(--card); border: 1px solid #475569; padding: 18px 10px; border-radius: 12px; text-align: center; cursor: pointer; font-weight: 500; transition: 0.2s; }
-        .app-btn:hover { background: #2d3748; border-color: var(--accent); }
-        .cam-sec { display: flex; gap: 12px; align-items: center; }
-        .cam-btn { background: var(--card); padding: 12px 18px; border-radius: 10px; border: 1px solid var(--accent); cursor: pointer; }
-        .cam-label { flex: 1; background: var(--card); padding: 15px; border-radius: 10px; border: 1px solid #334155; }
-        .ai-sec { background: linear-gradient(135deg, #6366f1, #38bdf8); color: white; padding: 25px; border-radius: 15px; font-weight: bold; text-align: center; font-size: 24px; cursor: pointer; border: none; }
-        .bottom-sec { display: flex; gap: 20px; flex: 1; }
-        .music-box { flex: 1; background: var(--card); border-radius: 15px; border: 1px solid #334155; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 800; cursor: pointer; color: #94a3b8; }
-        .fav-box { flex: 1; background: var(--card); border-radius: 15px; border: 1px solid #334155; padding: 15px; }
+        .right-panel { width: 60%; padding: 20px; display: flex; flex-direction: column; gap: 15px; box-sizing: border-box; }
+
+        /* TÌM KIẾM */
+        .search-box { width: 100%; padding: 15px; border-radius: 12px; border: 2px solid var(--accent); background: var(--card); color: white; margin-bottom: 20px; outline: none; font-size: 16px; box-sizing: border-box; }
+        .app-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .app-btn { background: var(--card); border: 1px solid #475569; padding: 15px 10px; border-radius: 12px; text-align: center; cursor: pointer; font-size: 14px; transition: 0.2s; }
+        .app-btn:hover { border-color: var(--accent); background: #2d3748; }
+
+        /* CỘT PHẢI */
+        .cam-sec { display: flex; gap: 10px; align-items: center; }
+        .cam-btn { background: var(--card); padding: 10px 15px; border-radius: 10px; border: 1px solid var(--accent); cursor: pointer; }
+        .cam-label { flex: 1; background: var(--card); padding: 12px; border-radius: 10px; border: 1px solid #334155; }
+
+        .ai-sec { 
+            background: linear-gradient(135deg, #6366f1, #38bdf8); 
+            color: white; padding: 20px; border-radius: 15px; 
+            font-weight: bold; text-align: center; font-size: 20px; 
+            cursor: pointer; border: none;
+        }
+
+        /* NHẠC & THỜI TIẾT */
+        .bottom-sec { display: flex; gap: 15px; flex: 1; min-height: 0; }
+        
+        /* Spotify Player */
+        .music-box { flex: 1; background: #000; border-radius: 15px; overflow: hidden; border: 1px solid #334155; }
+        
+        /* Weather Widget */
+        .weather-box { 
+            flex: 1; background: linear-gradient(to bottom, #1e293b, #0f172a); 
+            border-radius: 15px; border: 1px solid #334155; padding: 10px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
     </style>
 </head>
 <body>
 
+    <!-- CỘT TRÁI -->
     <div class="left-panel">
-        <input type="text" id="q" class="search-box" placeholder="Nhập nội dung...">
+        <input type="text" id="q" class="search-box" placeholder="Tìm kiếm nhanh...">
         <div class="app-grid">
             <div class="app-btn" onclick="openLink('yt')">YouTube</div>
             <div class="app-btn" onclick="openLink('tk')">TikTok</div>
@@ -36,50 +64,29 @@
         </div>
     </div>
 
+    <!-- CỘT PHẢI -->
     <div class="right-panel">
         <div class="cam-sec">
             <div class="cam-btn">📷</div>
-            <div class="cam-label">Chụp Ảnh</div>
+            <div class="cam-label">Camera Hệ Thống</div>
         </div>
+
         <button class="ai-sec" onclick="openLink('ai')">AI GEMINI</button>
+
         <div class="bottom-sec">
-            <div class="music-box" onclick="openLink('sf')">
-    <div class="visualizer">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-    </div>
-    <span style="position: absolute; bottom: 10px; font-size: 14px;">SPOTIFY</span>
-</div>
+            <!-- PHẦN NHẠC SPOTIFY REAL -->
+            <div class="music-box">
+                <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGvPBcmT?utm_source=generator&theme=0" 
+                    width="100%" height="100%" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+                </iframe>
+            </div>
 
-<style>
-    .visualizer {
-        display: flex;
-        align-items: flex-end;
-        gap: 3px;
-        height: 50px;
-    }
-    .bar {
-        width: 8px;
-        background: var(--accent);
-        animation: search-wave 1s ease-in-out infinite;
-    }
-    .bar:nth-child(1) { animation-delay: 0.1s; height: 30%; }
-    .bar:nth-child(2) { animation-delay: 0.3s; height: 60%; }
-    .bar:nth-child(3) { animation-delay: 0.2s; height: 90%; }
-    .bar:nth-child(4) { animation-delay: 0.4s; height: 50%; }
-    .bar:nth-child(5) { animation-delay: 0.1s; height: 70%; }
-
-    @keyframes search-wave {
-        0%, 100% { height: 20%; }
-        50% { height: 100%; }
-    }
-</style>
-            <div class="fav-box">
-                <h4 style="margin:0">TAB yêu thích</h4>
-                <p style="font-size:12px; color:#64748b">• Danh sách trống</p>
+            <!-- PHẦN DỰ BÁO THỜI TIẾT -->
+            <div class="weather-box">
+                <div id="ww_66e04d603a115" v='1.3' loc='auto' a='{"t":"horizontal","lang":"vi","sl_lform":"c","sl_l6":"1","sl_l1":"1","sl_l2":"1","sl_l3":"1","sl_l4":"1","sl_l5":"1","ids":[],"unit":"c","repsonse":true}'>
+                    <a href="https://weatherwidget.org/vi/" id="ww_66e04d603a115_u" target="_blank">Widget thời tiết cho website</a>
+                </div>
+                <script async src="https://app1.weatherwidget.org/js/?id=ww_66e04d603a115"></script>
             </div>
         </div>
     </div>
@@ -87,8 +94,8 @@
     <script>
         function openLink(key) {
             const val = document.getElementById('q').value;
-            if (!val && key !== 'sf' && key !== 'ai') {
-                alert("Bạn chưa nhập nội dung tìm kiếm!");
+            if (!val && key !== 'ai') {
+                alert("Nhập từ khóa tìm kiếm!");
                 return;
             }
 
@@ -100,20 +107,16 @@
                 sp: 'https://shopee.vn/search?keyword=',
                 gg: 'https://www.google.com/search?q=',
                 mp: 'https://www.google.com/maps/search/',
-                sf: 'https://open.spotify.com/search/',
                 ai: 'https://gemini.google.com/'
             };
 
             let finalUrl = links[key];
-            if (key !== 'ai' && key !== 'sf' || (key === 'sf' && val)) {
-                finalUrl += query;
-            }
+            if (key !== 'ai') finalUrl += query;
 
-            // MẸO: Sử dụng thẻ <a> ẩn để "đánh lừa" trình đóng gói App mở trình duyệt ngoài
+            // Dùng cách này để lách lỗi "Blocked" trên Nativefier
             const a = document.createElement('a');
             a.href = finalUrl;
             a.target = '_blank';
-            a.rel = 'noopener noreferrer';
             a.click();
         }
     </script>
