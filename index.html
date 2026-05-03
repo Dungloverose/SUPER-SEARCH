@@ -3,112 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XD Super App</title>
+    <title>XD Super App v3</title>
     <link rel="manifest" href="manifest.json">
     <style>
         :root { --bg: #0f172a; --card: #1e293b; --accent: #38bdf8; --text: #f8fafc; }
         body { 
-            font-family: 'Segoe UI', Tahoma, sans-serif; 
-            background: var(--bg); color: var(--text); 
+            font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); 
             margin: 0; display: flex; height: 100vh; overflow: hidden; 
         }
 
-        /* CỘT TRÁI - TÌM KIẾM DÀI TOÀN TRANG */
+        /* LAYOUT CHIA CỘT */
         .left-panel { 
-            width: 45%; 
-            border-right: 1px solid #334155; 
-            padding: 30px; 
-            display: flex; 
-            flex-direction: column; 
-            box-sizing: border-box;
-            justify-content: center; /* Đưa các nút tìm kiếm ra giữa theo chiều dọc */
+            width: 40%; border-right: 1px solid #334155; padding: 40px 25px; 
+            display: flex; flex-direction: column; box-sizing: border-box;
         }
-        
-        .logo-container { text-align: center; margin-bottom: 30px; }
-        .logo-app { font-size: 50px; font-weight: 900; color: var(--accent); text-shadow: 0 0 20px rgba(56, 189, 248, 0.5); }
-
-        .search-box { 
-            width: 100%; padding: 18px; border-radius: 30px; 
-            border: 2px solid var(--accent); background: var(--card); 
-            color: white; margin-bottom: 25px; outline: none; 
-            font-size: 18px; box-sizing: border-box;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-
-        .app-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .app-btn { 
-            background: var(--card); border: 1px solid #475569; 
-            padding: 20px 10px; border-radius: 15px; 
-            text-align: center; cursor: pointer; font-weight: bold;
-            transition: 0.3s;
-        }
-        .app-btn:hover { border-color: var(--accent); background: #2d3748; transform: translateY(-3px); }
-
-        /* CỘT PHẢI - AI, NHẠC & THỜI TIẾT */
         .right-panel { 
-            width: 55%; padding: 25px; 
-            display: flex; flex-direction: column; 
+            width: 60%; padding: 25px; display: flex; flex-direction: column; 
             gap: 20px; box-sizing: border-box; 
         }
 
-        .ai-sec { 
-            background: linear-gradient(135deg, #6366f1, #38bdf8); 
-            color: white; padding: 30px; border-radius: 20px; 
-            font-weight: bold; text-align: center; font-size: 26px; 
-            cursor: pointer; border: none; box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+        /* LOGO & SEARCH (KÉO DÀI) */
+        .logo-box { text-align: center; margin-bottom: 40px; }
+        .logo-text { font-size: 45px; font-weight: 900; letter-spacing: 2px; color: var(--accent); text-shadow: 0 0 15px rgba(56, 189, 248, 0.4); }
+        
+        .search-area { flex-grow: 1; display: flex; flex-direction: column; }
+        .search-box { 
+            width: 100%; padding: 20px; border-radius: 15px; 
+            border: 2px solid var(--accent); background: var(--card); 
+            color: white; outline: none; font-size: 18px; box-sizing: border-box;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
         }
 
-        /* KHU VỰC TIỆN ÍCH DƯỚI */
+        .app-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; }
+        .app-btn { 
+            background: var(--card); border: 1px solid #475569; padding: 22px 10px; 
+            border-radius: 15px; text-align: center; cursor: pointer; font-weight: bold;
+            transition: 0.3s;
+        }
+        .app-btn:hover { background: #2d3748; border-color: var(--accent); transform: translateY(-3px); }
+
+        /* BÊN PHẢI: AI, NHẠC, THỜI TIẾT */
+        .ai-sec { 
+            background: linear-gradient(135deg, #6366f1, #38bdf8); color: white; 
+            padding: 30px; border-radius: 25px; font-weight: bold; text-align: center; 
+            font-size: 26px; cursor: pointer; border: none; 
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+        }
+
         .bottom-sec { display: flex; gap: 20px; flex: 1; min-height: 0; }
         
         .music-box { 
-            flex: 1.2; background: #000; border-radius: 20px; 
+            flex: 1.3; background: #000; border-radius: 25px; 
             overflow: hidden; border: 1px solid #334155; 
-            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
         }
         
         .weather-box { 
-            flex: 0.8; background: linear-gradient(to bottom, #1e293b, #0f172a); 
-            border-radius: 20px; border: 1px solid #334155; padding: 15px;
+            flex: 0.7; background: linear-gradient(to bottom, #1e293b, #0f172a); 
+            border-radius: 25px; border: 1px solid #334155; padding: 20px;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
     </style>
 </head>
 <body>
 
-    <!-- BÊN TRÁI: LOGO & TÌM KIẾM KÉO DÀI -->
+    <!-- CỘT TRÁI: LOGO & TÌM KIẾM DÀI -->
     <div class="left-panel">
-        <div class="logo-container">
-            <div class="logo-app">XD APP</div>
-            <p style="color: #94a3b8; margin-top: 5px;">Hệ sinh thái thông minh</p>
+        <div class="logo-box">
+            <div class="logo-text">XD APP</div>
+            <p style="color: #64748b; margin: 5px 0 0 0;">SMART ECOSYSTEM</p>
         </div>
 
-        <input type="text" id="q" class="search-box" placeholder="Nhập điều bạn muốn tìm...">
-        
-        <div class="app-grid">
-            <div class="app-btn" onclick="openLink('yt')">YOUTUBE</div>
-            <div class="app-btn" onclick="openLink('tk')">TIKTOK</div>
-            <div class="app-btn" onclick="openLink('fb')">FACEBOOK</div>
-            <div class="app-btn" onclick="openLink('sp')">SHOPEE</div>
-            <div class="app-btn" onclick="openLink('gg')">GOOGLE</div>
-            <div class="app-btn" onclick="openLink('mp')">MAPS</div>
+        <div class="search-area">
+            <input type="text" id="q" class="search-box" placeholder="Bạn cần tìm gì hôm nay?">
+            
+            <div class="app-grid">
+                <div class="app-btn" onclick="go('yt')">YOUTUBE</div>
+                <div class="app-btn" onclick="go('tk')">TIKTOK</div>
+                <div class="app-btn" onclick="go('fb')">FACEBOOK</div>
+                <div class="app-btn" onclick="go('sp')">SHOPEE</div>
+                <div class="app-btn" onclick="go('gg')">GOOGLE</div>
+                <div class="app-btn" onclick="go('mp')">MAPS</div>
+            </div>
+            <!-- Phần trống phía dưới này giúp thanh tìm kiếm trông dài và thoáng hơn -->
+            <div style="flex: 1;"></div> 
         </div>
     </div>
 
-    <!-- BÊN PHẢI: AI, SPOTIFY & THỜI TIẾT -->
+    <!-- CỘT PHẢI: AI & WIDGETS -->
     <div class="right-panel">
-        <!-- NÚT AI GEMINI -->
-        <button class="ai-sec" onclick="openLink('ai')">TRỢ LÝ AI GEMINI</button>
+        <button class="ai-sec" onclick="go('ai')">TRỢ LÝ THÔNG MINH GEMINI</button>
 
         <div class="bottom-sec">
-            <!-- PHẦN NHẠC SPOTIFY -->
+            <!-- SPOTIFY MỚI (FIX LỖI PAGE NOT FOUND) -->
             <div class="music-box">
-                <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGvPBcmT?utm_source=generator&theme=0" 
+                <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DX4sWspSfs2Cj?utm_source=generator" 
                     width="100%" height="100%" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
                 </iframe>
             </div>
 
-            <!-- PHẦN THỜI TIẾT -->
+            <!-- THỜI TIẾT -->
             <div class="weather-box">
                 <div id="ww_66e04d603a115" v='1.3' loc='auto' a='{"t":"vertical","lang":"vi","sl_lform":"c","sl_l6":"1","sl_l1":"1","sl_l2":"1","sl_l3":"1","sl_l4":"1","sl_l5":"1","ids":[],"unit":"c","repsonse":true}'>
                     <a href="https://weatherwidget.org/vi/" id="ww_66e04d603a115_u" target="_blank">Widget thời tiết</a>
@@ -119,14 +112,11 @@
     </div>
 
     <script>
-        function openLink(key) {
+        function go(app) {
             const val = document.getElementById('q').value;
-            if (!val && key !== 'ai') {
-                alert("Vui lòng nhập từ khóa tìm kiếm!");
-                return;
-            }
+            if (!val && app !== 'ai') return alert("Vui lòng nhập từ khóa!");
 
-            const query = encodeURIComponent(val);
+            const encoded = encodeURIComponent(val);
             const links = {
                 yt: 'https://www.youtube.com/results?search_query=',
                 tk: 'https://www.tiktok.com/search?q=',
@@ -137,12 +127,12 @@
                 ai: 'https://gemini.google.com/'
             };
 
-            let finalUrl = links[key];
-            if (key !== 'ai') finalUrl += query;
+            let url = links[app];
+            if (app !== 'ai') url += encoded;
 
-            // Dùng thẻ <a> để tránh lỗi Blocked trên app desktop
+            // Mở link bằng thẻ <a> để tránh lỗi bảo mật của App Desktop
             const a = document.createElement('a');
-            a.href = finalUrl;
+            a.href = url;
             a.target = '_blank';
             a.click();
         }
